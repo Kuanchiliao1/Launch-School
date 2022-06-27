@@ -1,10 +1,13 @@
+#1
 def greeting(name)
-	puts "Hi there " + name.to_s
+	print "Hi there " + name.to_s
 end
 
-puts greeting("Bob")
+
+greeting("steve")
 
 
-def multiply(a,c)
-	puts a * c
-end
+#2 Go over highlighted part
+#4 ez
+#5 ez
+#6 ez
