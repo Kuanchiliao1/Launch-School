@@ -1,43 +1,108 @@
-# Request for these pieces of info: loan amount, APR, and loan duration
-# Calculate: monthly interest, loan duration in months, and monthly payment
-
-# m = p * (j / (1 - (1 + j)**(-n)))
-# m = monthly payment
-# p = loan amount
-# j = monthly interest rate
-# n = loan duration in months
-
-# SET APR = user input
-# SET  monthly_interest = APR/12
-# SET loan_time_in_years = user input
-# SET loan_time_in_months = 12 * loan_time_in_years
-# SET total_loan = user input
-
 def prompt(message)
-  puts "<= #{message}"
+  Kernel.puts("=> #{message}")
 end
 
-prompt("Please enter the following pieces of information...")
+loop do
+  prompt("Welcome to Mortgage Calculator!")
+  prompt("-------------------------------")
 
-prompt("What is the loan amount?")
-total_loan = gets.chomp.to_f
+  prompt("What is the loan amount?")
 
-prompt("What is the APR?")
-APR = gets.chomp.to_f
+  amount = ''
+  loop do
+    amount = Kernel.gets().chomp()
 
-prompt("What is the loan duration? in years")
-loan_time_in_years = gets.chomp.to_f
-loan_time_in_months = loan_time_in_years * 12
+    if amount.empty?() || amount.to_f() < 0
+      prompt("Must enter positive number.")
+    else
+      break
+    end
+  end
 
-monthly_interest = (APR / 12.0).round(2)
-puts monthly_interest
+  prompt("What is the interest rate?")
+  prompt("(Example: 5 for 5% or 2.5 for 2.5%)")
 
-# SET monthly_payment = total_loan * (monthly_interest / (1 - (1 + monthly_interest)**(- loan_time_in_months)))
-monthly_payment = total_loan * (monthly_interest / (1 - (1 + monthly_interest)**(-1 * loan_time_in_months)))
+  interest_rate = ''
+  loop do
+    interest_rate = Kernel.gets().chomp()
 
-prompt("Your monthly interest is #{monthly_interest}, Your loan duration in months is #{loan_time_in_months}, and Your monthly payment is.... #{monthly_payment}")
+    if interest_rate.empty?() || interest_rate.to_f() < 0
+      prompt("Must enter positive number.")
+    else
+      break
+    end
+  end
 
+  prompt("What is the loan duration (in years)?")
 
+  years = ''
+  loop do
+    years = Kernel.gets().chomp()
+
+    if years.empty?() || years.to_i() < 0
+      prompt("Enter a valid number")
+    else
+      break
+    end
+  end
+
+  annual_interest_rate = interest_rate.to_f() / 100
+  monthly_interest_rate = annual_interest_rate / 12
+  months = years.to_i() * 12
+
+  monthly_payment = amount.to_f() *
+                    (monthly_interest_rate /
+                    (1 - (1 + monthly_interest_rate)**(-months)))
+
+  prompt("Your monthly payment is: $#{format('%.2f', monthly_payment)}")
+
+  prompt("Another calculation?")
+  answer = Kernel.gets().chomp()
+
+  break unless answer.downcase().start_with?('y')
+end
+
+prompt("Thank you for using the Mortgage Calculator!")
+prompt("Good bye!")
+
+# # Request for these pieces of info: loan amount, APR, and loan duration
+# # Calculate: monthly interest, loan duration in months, and monthly payment
+
+# # m = p * (j / (1 - (1 + j)**(-n)))
+# # m = monthly payment
+# # p = loan amount
+# # j = monthly interest rate
+# # n = loan duration in months
+
+# # SET APR = user input
+# # SET  monthly_interest = APR/12
+# # SET loan_time_in_years = user input
+# # SET loan_time_in_months = 12 * loan_time_in_years
+# # SET total_loan = user input
+
+# def prompt(message)
+#   puts "<= #{message}"
+# end
+
+# prompt("Please enter the following pieces of information...")
+
+# prompt("What is the loan amount?")
+# total_loan = gets.chomp.to_f
+
+# prompt("What is the APR?")
+# APR = gets.chomp.to_f
+
+# prompt("What is the loan duration? in years")
+# loan_time_in_years = gets.chomp.to_f
+# loan_time_in_months = loan_time_in_years * 12
+
+# monthly_interest = (APR / 12.0).round(2)
+# puts monthly_interest
+
+# # SET monthly_payment = total_loan * (monthly_interest / (1 - (1 + monthly_interest)**(- loan_time_in_months)))
+# monthly_payment = total_loan * (monthly_interest / (1 - (1 + monthly_interest)**(-1 * loan_time_in_months)))
+
+# prompt("Your monthly interest is #{monthly_interest}, Your loan duration in months is #{loan_time_in_months}, and Your monthly payment is.... #{monthly_payment}")
 
 =begin
 
@@ -88,7 +153,7 @@ the problem.
 
 **Clarifying Questions:**
 
-1. 
+1.
 2.
 3.
 
